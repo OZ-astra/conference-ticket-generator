@@ -1,0 +1,326 @@
+/** @format */
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+@font-face {
+	font-family: "extraBoldFont";
+	src: url("assets/fonts/static/Inconsolata-ExtraBold.ttf");
+}
+
+@font-face {
+	font-family: "boldFont";
+	src: url("assets/fonts/static/Inconsolata-Bold.ttf");
+}
+
+@font-face {
+	font-family: "mediumFont";
+	src: url("assets/fonts/static/Inconsolata-Medium.ttf");
+}
+
+@font-face {
+	font-family: "regularFont";
+	src: url("assets/fonts/static/Inconsolata-Regular.ttf");
+}
+
+body {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font-family: "bold";
+	background-image: url("assets/images/background-mobile.png");
+	background-size: cover;
+}
+
+main {
+	width: 95%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	color: white;
+	background-image: url("assets/images/pattern-lines.svg");
+}
+
+header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 2rem;
+}
+
+.logo-container #page-logo {
+	width: 80%;
+}
+
+header h2,
+.page-description {
+	text-align: center;
+}
+
+header h2 {
+	margin-top: 2.5rem;
+	font-family: "extraBoldFont", sans-serif;
+	font-size: 1.7rem;
+	font-weight: 700;
+}
+
+.page-description {
+	font-family: "mediumFont", sans-serif;
+	font-weight: 500;
+	font-size: 1.3rem;
+	margin-top: 1.5rem;
+	line-height: 1.4rem;
+	color: hsl(0, 0%, 100%, 0.7);
+}
+
+form {
+	width: 100%;
+	margin-top: 2.5rem;
+}
+
+.drag-and-drop-section h3 {
+	font-family: "regularFont", sans-serif;
+	font-weight: 400;
+	font-size: 1.2rem;
+}
+
+#drag-and-drop {
+	border: 2.5px dashed hsl(0, 0%, 100%, 0.5);
+	background-color: hsla(252, 78%, 46%, 0.1);
+	width: 100%;
+	display: grid;
+	place-items: center;
+	margin-top: 1rem;
+	padding: 1.6rem 0;
+	border-radius: 8px;
+}
+
+#drag-and-drop img {
+	padding: 0.6rem;
+	border-radius: 9px;
+	background-color: hsl(252, 6%, 83%, 0.1);
+}
+
+#drag-and-drop #dropped-image {
+	max-width: 10%;
+	aspect-ratio: 1/1;
+	margin-top: 0rem;
+	margin-bottom: 1.5rem;
+	padding: 0;
+}
+
+#drag-and-drop p,
+#drag-and-drop p input {
+	font-family: "regularFont", sans-serif;
+	margin-top: 1rem;
+	font-size: 1.1rem;
+	color: hsl(0, 0%, 100%, 0.7);
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0;
+	margin: 0;
+	margin-top: 1rem;
+}
+
+#drag-and-drop label {
+	margin-left: 0.8rem;
+}
+
+#drag-and-drop p input {
+	display: none;
+}
+
+#image-option-container {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	gap: 10px;
+	margin: 0;
+}
+
+#image-option-container button {
+	padding: 0.2rem;
+	border-radius: 4px;
+	font-family: "boldFont", sans-serif;
+	background-color: hsla(252, 78%, 46%, 0.1);
+	color: hsl(0, 0%, 100%, 0.7);
+	outline: none;
+}
+
+.info-container {
+	padding: 0;
+	display: flex;
+	align-items: center;
+	margin-top: 0.7rem;
+}
+
+.info-container p,
+.invalid-mail span {
+	font-size: 0.7rem;
+	margin-left: 0.7rem;
+}
+
+/* .error-message img {
+	border: 2px solid red;
+} */
+
+.info-container #large-file {
+	color: rgb(225, 97, 81);
+}
+
+.input-section {
+	width: 100%;
+	margin-top: 1.5rem;
+}
+
+label {
+	font-family: "regularFont", sans-serif;
+	font-weight: 500;
+	font-size: 1.2rem;
+}
+
+input:focus,
+#drag-and-drop:focus {
+	outline: 1px solid hsl(0, 0%, 100%, 0.5);
+	outline-offset: 1px;
+}
+
+input {
+	border: 0.5px solid rgba(255, 255, 255, 0.5);
+	width: 90%;
+	padding: 1.14rem 0;
+	margin-top: 0.5rem;
+	margin-bottom: 1.5rem;
+	border-radius: 8px;
+	background-color: hsl(252, 6%, 83%, 0.1);
+	margin-left: 0.5rem;
+	padding-left: 1rem;
+	position: relative;
+	z-index: 1;
+	color: white;
+}
+
+input::placeholder {
+	color: hsl(0, 0%, 100%, 0.8);
+	font-family: "regularFont", sans-serif;
+	font-weight: 400;
+	font-size: 1rem;
+}
+
+.invalid-mail {
+	margin-top: -1rem;
+	color: rgb(225, 97, 81);
+	display: none;
+}
+
+.invalid-mail img {
+	color: red;
+}
+
+#submit {
+	font-family: "boldFont", sans-serif;
+	font-size: 1.3rem;
+	font-weight: 500;
+	margin-bottom: 4.5rem;
+	background-color: hsl(7, 88%, 67%);
+	border: 0;
+}
+
+#snake-line {
+	width: 30%;
+	position: absolute;
+	margin-left: 16rem;
+}
+
+#pattern-circle {
+	width: 30%;
+	position: absolute;
+	margin-left: 15rem;
+	margin-top: -2.5rem;
+}
+
+#bottom-design-line,
+#desktop-bottom-design-line {
+	position: relative;
+	width: 90%;
+	margin-top: -15rem;
+	z-index: 0;
+	margin-left: -1rem;
+}
+
+#desktop-bottom-design-line {
+	display: none;
+}
+
+/* desktop design */
+
+@media (min-width: 580px) {
+	body {
+		background-image: url("assets/images/background-desktop.png");
+	}
+
+	main {
+		width: 70%;
+		justify-content: center;
+	}
+
+	.logo-container #page-logo {
+		width: 90%;
+	}
+
+	header .page-heading {
+		font-size: 3.2rem;
+		line-height: 3rem;
+	}
+
+	.page-description {
+		font-size: 1.4rem;
+	}
+
+	#submit {
+		margin-bottom: 1.5rem;
+	}
+
+	form {
+		width: 500px;
+	}
+
+	#snake-line {
+		right: 0;
+	}
+
+	header #pattern-circle {
+		left: -13rem;
+		top: 5rem;
+	}
+
+	#pattern-circle {
+		width: 10%;
+		position: absolute;
+		margin-left: 20rem;
+		margin-top: 2rem;
+	}
+
+	#bottom-design-line {
+		display: none;
+	}
+
+	form {
+		display: block;
+	}
+
+	.bottom-line-container {
+		width: 100vw;
+	}
+
+	#desktop-bottom-design-line {
+		display: inline;
+		width: 60%;
+	}
+}
