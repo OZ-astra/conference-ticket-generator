@@ -1,51 +1,93 @@
 /** @format */
 
-const form = document.getElementById("form");
+const formEl = document.getElementById("form");
 const dragDrop = document.getElementById("drag-and-drop");
+const uploadFile = document.getElementById("fileInput");
 const dragDropText = document.getElementById("drag-drop-text");
 const messageContainer = document.querySelector(".info-container");
 const errorMessage = document.querySelector(".error-message");
 const invalidMail = document.querySelector(".invalid-mail");
 const fullName = document.getElementById("fullname");
-const mail = document.getElementById("email");
+const email = document.getElementById("email");
 const github = document.getElementById("github");
 const submit = document.getElementById("submit");
+let myFile;
 
-const usernamePattern = /[a-zA-Z0-9_@#%&$*!?]{3,16}$/;
-const mailPattern = /[a-zA-Z0-9_@.com]$/;
-
-form.addEventListener("submit", (e) => {
-	if (!usernamePattern.test(fullName.value)) {
-		fullName.style.borderColor = "rgb(225, 97, 81)";
-		e.preventDefault();
-		console.log("an error occured");
+const validateName = (element) => {
+	const usernamePattern = /[a-zA-Z0-9_@#%&$*!?]{3,16}$/;
+	if (usernamePattern.test(element.value)) {
+		element.style.borderColor = "rgba(255, 255, 255, 0.5);";
+		return true;
 	} else {
-		fullName.style.borderColor = "rgba(255, 255, 255, 0.5);";
+		element.style.borderColor = "rgb(225, 97, 81)";
+		return false;
 	}
+};
 
-	// github validation
-
-	if (!usernamePattern.test(github.value)) {
-		github.style.borderColor = "rgb(225, 97, 81)";
-		e.preventDefault();
+const validateEmail = () => {
+	const mailPattern = /[a-zA-Z0-9_@.com]$/;
+	if (mailPattern.test(email.value)) {
+		email.style.borderColor = "rgba(255, 255, 255, 0.5)";
+		return true;
 	} else {
-		github.style.borderColor = "rgba(255, 255, 255, 0.5);";
-	}
-	// mail validation
-
-	if (!mailPattern.test(mail.value)) {
-		mail.style.borderColor = "rgb(225, 97, 81)";
+		email.style.borderColor = "rgb(225, 97, 81)";
 		invalidMail.style.display = "block";
-
-		e.preventDefault();
-	} else {
-		mail.style.borderColor = "rgba(255, 255, 255, 0.5);";
+		return false;
 	}
+};
+
+let isAvatarDropped = false;
+const validateAvatar = () => {
+	if (!isAvatarDropped) {
+		dragDrop.style.borderColor = "rgb(225, 97, 81)";
+		return false;
+	} else {
+		return true;
+	}
+};
+
+const validatorsMap = {
+	fullName: () => validateName(fullName),
+	github: () => validateName(github),
+	email: validateEmail,
+	avater: validateAvatar,
+};
+
+const fieldNames = Object.keys(validatorsMap);
+
+formEl.addEventListener("submit", async (e) => {
+	e.preventDefault();
+
+	const isFormValid = fieldNames.some((field) => {
+		const validator = validatorsMap[field];
+		return validator();
+	});
+	if (!isFormValid) return;
+
+	if (!myFile) {
+		console.error("No file uploaded");
+		return;
+	}
+	try {
+		const base64String = await convertToBase64(myFile);
+		const storageObject = {
+			username: fullName.value,
+			githubName: github.value,
+			email: email.value,
+			image: base64String,
+		};
+		console.log("storage object:", storageObject);
+
+		sessionStorage.setItem("userData", JSON.stringify(storageObject));
+	} catch (error) {
+		console.error("Error converting file to base64:", error);
+	}
+
+	location.href = "generated-tickets.html";
 });
 
 dragDrop.addEventListener("dragover", (ev) => {
 	ev.preventDefault();
-	dragDrop.style.backgroundColor = "red";
 });
 
 const dragDropContent = dragDrop.innerHTML;
@@ -53,75 +95,96 @@ const dragDropContent = dragDrop.innerHTML;
 dragDrop.addEventListener("drop", (ev) => {
 	ev.preventDefault();
 	dragDrop.style.backgroundColor = "";
-	const file = ev.dataTransfer.files[0];
-	if (file.type.startsWith("image/")) {
+	myFile = ev.dataTransfer.files[0];
+
+	if (myFile.type.startsWith("image/")) {
 		const img = document.createElement("img");
-		img.src = URL.createObjectURL(file);
+		img.src = URL.createObjectURL(myFile);
 		img.id = "dropped-image";
+		img.style.width = "15%";
 		dragDrop.innerHTML = "";
 		dragDrop.appendChild(img);
 	}
 
-	if (file.size > 500000) {
-		dragDrop.style.backgroundColor = "rgb(0, 255, 0)";
+	if (ev.dataTransfer.files.length > 0) {
+		isAvatarDropped = true;
+	}
+
+	if (myFile.size > 500000) {
 		messageContainer.style.display = "none";
 		errorMessage.style.display = "flex";
 	} else {
-		// dragDrop.style.backgroundColor = "blue";
-
 		messageContainer.style.display = "flex";
 		errorMessage.style.display = "none";
 
-		// imageOpionContainer
-		const imageOptionContainer = document.createElement("div");
-		dragDrop.appendChild(imageOptionContainer);
-		imageOptionContainer.id = "image-option-container";
-
-		// removeImage section
-		const removeImage = document.createElement("button");
-		removeImage.textContent = "Remove image";
-		imageOptionContainer.appendChild(removeImage);
-
-		removeImage.addEventListener("mouseover", () => {
-			removeImage.style.textDecoration = "underline";
-		});
-		removeImage.addEventListener("mouseleave", () => {
-			removeImage.style.textDecoration = "";
-		});
-		removeImage.addEventListener("click", (ev) => {
-			dragDrop.innerHTML = "";
-			dragDrop.innerHTML = dragDropContent;
-		});
-
-		// changeImage
-		const changeImage = document.createElement("button");
-		changeImage.textContent = "Change image";
-		imageOptionContainer.appendChild(changeImage);
-
-		changeImage.addEventListener("mouseover", () => {
-			changeImage.style.textDecoration = "underline";
-		});
-		changeImage.addEventListener("mouseleave", () => {
-			changeImage.style.textDecoration = "";
-		});
-	}
-
-	console.log("file dropped:", file.name);
-	console.log("file size:", file.size);
-});
-
-let fileDropped = false;
-
-dragDrop.addEventListener("drop", (ev) => {
-	ev.preventDefault();
-	if (ev.dataTransfer.files.length > 0) {
-		fileDropped = true;
+		optionContainer();
 	}
 });
 
-submit.addEventListener("click", (event) => {
-	if (!fileDropped) {
-		event.preventDefault();
-		dragDrop.style.borderColor = "rgb(225, 97, 81)";
+function optionContainer() {
+	// imageOpionContainer
+	const imageOptionContainer = document.createElement("div");
+	dragDrop.appendChild(imageOptionContainer);
+	imageOptionContainer.id = "image-option-container";
+
+	// removeImage section
+	const removeImage = document.createElement("button");
+	removeImage.textContent = "Remove image";
+	imageOptionContainer.appendChild(removeImage);
+
+	removeImage.addEventListener("mouseover", () => {
+		removeImage.style.textDecoration = "underline";
+	});
+	removeImage.addEventListener("mouseleave", () => {
+		removeImage.style.textDecoration = "";
+	});
+	removeImage.addEventListener("click", (ev) => {
+		dragDrop.innerHTML = dragDropContent;
+	});
+
+	// changeImage
+	const changeImage = document.createElement("button");
+	changeImage.textContent = "Change image";
+	imageOptionContainer.appendChild(changeImage);
+
+	changeImage.addEventListener("mouseover", () => {
+		changeImage.style.textDecoration = "underline";
+	});
+	changeImage.addEventListener("mouseleave", () => {
+		changeImage.style.textDecoration = "";
+	});
+
+	changeImage.addEventListener("click", () => {
+		uploadFile.click();
+	});
+}
+
+// session storage
+function convertToBase64(file) {
+	return new Promise((resolve, reject) => {
+		console.log(file);
+		const reader = new FileReader();
+
+		reader.onloadend = () => {
+			resolve(reader.result);
+		};
+		reader.onerror = (error) => {
+			reject(error);
+		};
+
+		reader.readAsDataURL(file);
+	});
+}
+
+uploadFile.addEventListener("change", function (ev) {
+	myFile = ev.target.files[0];
+
+	if (myFile) {
+		const img = document.createElement("img");
+		img.src = URL.createObjectURL(myFile);
+		img.id = "dropped-image";
+		dragDrop.innerHTML = "";
+		dragDrop.appendChild(img);
+		optionContainer();
 	}
 });
