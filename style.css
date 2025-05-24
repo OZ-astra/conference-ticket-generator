@@ -467,6 +467,7 @@ figure img {
 .attribution {
 	font-size: 11px;
 	text-align: center;
+	color: hsl(0, 0%, 100%, 0.7);
 	}
 .attribution a {
 	color: white;
