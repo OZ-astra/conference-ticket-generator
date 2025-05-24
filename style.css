@@ -26,14 +26,24 @@
 	src: url("assets/fonts/static/Inconsolata-Regular.ttf");
 }
 
+@font-face {
+	font-family: "Inconsolata";
+	src: url("assets/fonts/Inconsolata-VariableFont_wdth,wght.ttf")
+		format("truetype");
+}
+
 body {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	font-family: "bold";
-	background-image: url("assets/images/background-mobile.png");
 	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+body.page1 {
+	background-image: url("assets/images/background-mobile.png");
 }
 
 main {
@@ -61,7 +71,8 @@ header h2,
 	text-align: center;
 }
 
-header h2 {
+header h2,
+.coding-conf h2 {
 	margin-top: 2.5rem;
 	font-family: "extraBoldFont", sans-serif;
 	font-size: 1.7rem;
@@ -95,7 +106,7 @@ form {
 	display: grid;
 	place-items: center;
 	margin-top: 1rem;
-	padding: 1.6rem 0;
+	padding: 1rem 0;
 	border-radius: 8px;
 }
 
@@ -106,7 +117,7 @@ form {
 }
 
 #drag-and-drop #dropped-image {
-	max-width: 10%;
+	max-width: 15%;
 	aspect-ratio: 1/1;
 	margin-top: 0rem;
 	margin-bottom: 1.5rem;
@@ -138,10 +149,11 @@ form {
 
 #image-option-container {
 	display: flex;
-	width: 100%;
+	width: 50%;
 	justify-content: center;
 	gap: 10px;
 	margin: 0;
+	padding: 0;
 }
 
 #image-option-container button {
@@ -166,10 +178,6 @@ form {
 	margin-left: 0.7rem;
 }
 
-/* .error-message img {
-	border: 2px solid red;
-} */
-
 .info-container #large-file {
 	color: rgb(225, 97, 81);
 }
@@ -191,7 +199,8 @@ input:focus,
 	outline-offset: 1px;
 }
 
-input {
+input,
+button {
 	border: 0.5px solid rgba(255, 255, 255, 0.5);
 	width: 90%;
 	padding: 1.14rem 0;
@@ -258,6 +267,108 @@ input::placeholder {
 	display: none;
 }
 
+/* page2 only */
+
+body.page2 {
+	height: 100vh;
+	background-image: none;
+	background-color: mblueviolet;
+	background-image: url("assets/images/background-tablet.png");
+}
+
+.page2 .page-heading {
+	font-size: 1.9rem;
+	font-family: "regularFont";
+	font-weight: 600;
+}
+
+.page-heading .person-name {
+	background: linear-gradient(to right, hsl(7, 86%, 67%), hsl(0, 0%, 100%));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.page2 .page-description {
+	margin-top: 2.5rem;
+	font-size: 1.2rem;
+}
+
+.page-description #person-email {
+	color: hsl(7, 86%, 67%);
+}
+
+.page2 #ticket {
+	background-image: url("assets/images/pattern-ticket.svg");
+	width: 100%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	margin-top: 5rem;
+	padding-top: 1rem;
+	padding-left: 1rem;
+	font-family: "mediumFont";
+	font-weight: 200;
+}
+
+.page2-logo-container {
+	display: flex;
+	align-items: center;
+}
+
+.page2-logo-container img {
+	width: 10%;
+}
+
+.page2-logo-container .coding-conf {
+	margin-top: 0;
+	margin-left: 0.8rem;
+	font-weight: 700;
+	width: 100%;
+}
+
+.page2-logo-container .coding-conf h2 {
+	margin-top: 0;
+}
+
+.inputs {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	margin-top: 2rem;
+	margin-bottom: 1rem;
+}
+
+.coding-conf #date,
+figure {
+	font-family: "regularFont";
+	font-size: 0.75rem;
+	font-weight: 200;
+	margin-top: 0.4rem;
+	color: hsl(252, 6%, 83%);
+}
+
+#person-image {
+	max-width: 16%;
+	border-radius: 8px;
+	margin: 0;
+}
+
+.inputs div {
+	width: 85%;
+}
+
+.inputs .person-name {
+	font-size: 1.2rem;
+}
+figure {
+	display: flex;
+	gap: 0.3rem;
+	align-items: center;
+}
+
+figure img {
+	width: 6%;
+}
+
 /* desktop design */
 
 @media (min-width: 580px) {
@@ -266,7 +377,7 @@ input::placeholder {
 	}
 
 	main {
-		width: 70%;
+		width: 50%;
 		justify-content: center;
 	}
 
@@ -322,5 +433,34 @@ input::placeholder {
 	#desktop-bottom-design-line {
 		display: inline;
 		width: 60%;
+	}
+
+	.page2 #ticket {
+		margin-left: 18rem;
+	}
+
+	#ticket #page-logo {
+		max-width: 7%;
+	}
+
+	#ticket .inputs {
+		margin-top: 2.5rem;
+		margin-bottom: 1.5rem;
+	}
+
+	#person-image {
+		max-width: 10%;
+	}
+}
+
+@media (min-width: 400px) {
+	body.page2 {
+	}
+
+	.page2 #ticket {
+		width: 100%;
+		margin-bottom: 2rem;
+		background-size: contain;
+		margin-left: 1rem;
 	}
 }
