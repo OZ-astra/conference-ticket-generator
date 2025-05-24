@@ -1,0 +1,147 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- displays site properly based on user's device -->
+
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="32x32"
+			href="./assets/images/favicon-32x32.png"
+		/>
+		<link rel="stylesheet" href="style.css" />
+
+		<title>Frontend Mentor | Conference ticket generator</title>
+
+		<style>
+			.attribution {
+				font-size: 11px;
+				text-align: center;
+			}
+			.attribution a {
+				color: hsl(228, 45%, 44%);
+			}
+		</style>
+	</head>
+	<body class="page1">
+		<!-- Form starts -->
+		<main>
+			<header>
+				<div class="logo-container">
+					<img
+						src="assets/images/logo-full.svg"
+						alt="page logo and name"
+						id="page-logo"
+					/>
+				</div>
+
+				<img
+					src="assets/images/pattern-squiggly-line-top.svg"
+					alt=""
+					id="snake-line"
+				/>
+
+				<h2 class="page-heading">
+					Your Journey to Coding Conf 2025 Starts Here!
+				</h2>
+				<p class="page-description">
+					Secure your spot at next year's biggest coding conference.
+				</p>
+				<img
+					src="assets/images/pattern-circle.svg"
+					alt=""
+					id="pattern-circle"
+				/>
+			</header>
+
+			<form action="" id="form">
+				<section class="drag-and-drop-section">
+					<h3>Upload Avatar</h3>
+					<div id="drag-and-drop">
+						<img src="assets/images/icon-upload.svg" alt="upload icon" />
+						<p id="drag-drop-text">
+							Drag and drop or
+							<label for="fileInput">click to upload</label>
+							<input type="file" name="filename" id="fileInput" />
+						</p>
+					</div>
+					<div class="info-container">
+						<img src="assets/images/icon-info.svg" alt="info icon" />
+						<p>Upload your photo (JPG or PNG, max size: 500KB).</p>
+					</div>
+
+					<div class="info-container error-message" style="display: none">
+						<img src="assets/images/icon-info.svg" alt="info icon" />
+						<p id="large-file">
+							file too large. Please upload a photo uder 500kb
+						</p>
+					</div>
+				</section>
+
+				<section class="input-section">
+					<label for="fullname">Full Name</label> <br />
+					<input type="text" id="fullname" name="fullname" class="input" />
+					<br />
+
+					<img
+						src="assets/images/pattern-circle.svg"
+						alt=""
+						id="pattern-circle"
+					/>
+
+					<label for="email">Email Address</label> <br />
+					<input
+						type="text"
+						id="email"
+						name="email-address"
+						placeholder="example@email.com"
+						class="input"
+					/>
+					<p class="info-container invalid-mail">
+						<img src="assets/images/icon-info.svg" alt="info icon" />
+						<span>please enter a valid email</span>
+					</p>
+					<br />
+
+					<label for="github">GitHub Username</label> <br />
+					<input
+						type="text"
+						id="github"
+						name="github-username"
+						placeholder="@yourusername"
+						class="input"
+					/>
+					<br />
+
+					<button type="submit" id="submit">Generate My Ticket</button>
+					<img
+						src="assets/images/pattern-squiggly-line-bottom-mobile-tablet.svg"
+						alt=""
+						id="bottom-design-line"
+					/>
+				</section>
+			</form>
+			<div class="bottom-line-container">
+				<img
+					src="assets/images/pattern-squiggly-line-bottom-desktop.svg"
+					alt=""
+					id="desktop-bottom-design-line"
+				/>
+			</div>
+			<!-- Form ends -->
+		</main>
+
+		<div class="attribution">
+			Challenge by
+			<a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
+			Coded by <a href="#">Your Name Here</a>.
+		</div>
+
+		<script src="script.js"></script>
+		<!-- <script src="fixedScript.js"></script> -->
+	</body>
+</html>
