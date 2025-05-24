@@ -4,8 +4,11 @@ const personEmail = document.getElementById("person-email");
 const dateOfRegistration = document.getElementById("date-generated");
 const github = document.getElementById("github-name");
 document.addEventListener("DOMContentLoaded", () => {
-	const storedUserData = JSON.parse(localStorage.getItem("userData"));
-	console.log("Retrieved user data:", storedUserData);
+	if (!localStorage.getItem("userData") === "") {
+		const storedUserData = JSON.parse(localStorage.getItem("userData"));
+	} else {
+		window.location.href = "index.html";
+	}
 	personFullname.forEach((name) => {
 		name.textContent = storedUserData.username;
 	});
